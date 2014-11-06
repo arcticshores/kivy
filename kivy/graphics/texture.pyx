@@ -1269,6 +1269,15 @@ cdef class Texture:
             from kivy.graphics.fbo import Fbo
             return Fbo(size=self.size, texture=self).pixels
 
+    property nofree:
+        '''Allows you to specify that the texture in opengl video memory should
+        not be freed open being cleaned up by the garbage collector.
+        '''
+        def __get__(self):
+            return self._nofree
+        def __set__(self, x):
+            self._nofree = x
+
 
 cdef class TextureRegion(Texture):
     '''Handle a region of a Texture class. Useful for non power-of-2
@@ -1337,4 +1346,3 @@ cdef class TextureRegion(Texture):
             fbo.draw()
             self.flip_vertical()
             return fbo.pixels
-
